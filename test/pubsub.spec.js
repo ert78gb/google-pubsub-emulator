@@ -275,6 +275,34 @@ describe('Google PubSub Emulator Test', () => {
                     })
                 })
             })
+    });
+
+    it('should create topics if not exists when got topics option', () => {
+        let options = {
+            debug: true,
+            topics: [
+                'projects/test/topics/topic-1',
+                'projects/test/topics/topic-2'
+            ]
+        };
+
+        let emulator = new Emulator(options);
+
+        return emulator.start()
+            .then(() => {
+
+                return Promise.all([
+                    emulator.isTopicExists(options.topics[0]),
+                    emulator.isTopicExists(options.topics[1])
+                ])
+
+            })
+            .then((result) => {
+                expect(result[0].exists).to.be.equal(true);
+                expect(result[1].exists).to.be.equal(true);
+
+                return emulator.stop()
+            })
 
     })
 });

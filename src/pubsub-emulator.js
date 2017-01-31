@@ -24,6 +24,7 @@ class PubSubEmulator {
         this._emulator_port = null;
         this._state = null;
         this._stateEmitter = new PubSubStateEmitter();
+        this._pubsub = null;
 
         const self = this;
         process.on('exit', () => {
@@ -47,7 +48,12 @@ class PubSubEmulator {
 
             function startSuccessListener() {
                 removeStartListeners();
-                resolve();
+                self._pubsub = require('@google-cloud/pubsub')();
+                self._createTopics()
+                    .then(() => {
+                        resolve();
+
+                    })
             }
 
             function startRejectListener(error) {
@@ -242,6 +248,30 @@ class PubSubEmulator {
 
     _createDataDirSync() {
         return fse.ensureDir(this._options.dataDir);
+    }
+
+    _createTopics() {
+        if (!this._options.topics || this._options.topics.length < 1)
+            return Promise.resolve();
+
+        return Promise.all(this._options.topics.map(topic => this.isTopicExists(topic)))
+            .then((result => {
+                    return Promise.all(result
+                        .filter(topic => !topic.exists)
+                        .map(topic => this._pubsub.topic(topic.topicName).create())
+                    )
+                })
+            );
+    }
+
+    isTopicExists(topicName) {
+        return this._pubsub.topic(topicName).exists()
+            .then((result) => {
+                return Promise.resolve({
+                    topicName,
+                    exists: result[0]
+                });
+            })
     }
 }
 

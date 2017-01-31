@@ -57,6 +57,7 @@ clean (boolean) | true | If dataDir value is set and 'clean' value is true then 
 host (string) | empty | If it is empty the'localhost' of google default value is used. It can take the form of a single address (hostname, IPv4, or IPv6)
 port (number) | empty | If it is empty the emulator selects a random free port.
 debug (boolean) | false | If it is true, it writes the console.logs of the emulator onto the main process console.
+topics (array) | [] | If it is contains values then the wrapper create the missing topics. You should set the full identifier of the topic 'projects/<project-name>/topics/<topic-name>'
 
 ## Methods
 
