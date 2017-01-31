@@ -27,6 +27,8 @@ class PubSubEmulator {
         this._pubsub = null;
 
         const self = this;
+
+        /* istanbul ignore next */
         process.on('exit', () => {
             self.stop();
         });
@@ -239,6 +241,7 @@ class PubSubEmulator {
 
         return new Promise((resolve, reject) => {
             fse.remove(this._options.dataDir, (err) => {
+                /* istanbul ignore next */
                 if (err) return reject(err);
 
                 resolve();
