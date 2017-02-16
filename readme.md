@@ -28,7 +28,10 @@ describe('test suit', ()=>{
     
     before(()=>{
         const options = {
-            debug:true // if you like to see the emulator output
+            debug:true, // if you like to see the emulator output
+            topics: [
+                'projects/project-id/topics/topic-1' // automatically created topic
+            ]
         };
         
         emulator = new Emulator(options);
