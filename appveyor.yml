@@ -1,0 +1,46 @@
+environment:
+  GC_PATH: 'C:\CloudSDK'
+  matrix:
+    - nodejs_version: "6"
+    - nodejs_version: "7"
+
+platform:
+  - x86
+  - x64
+
+# Install scripts. (runs after repo cloning)
+install:
+  # download Cloud SDK
+  - appveyor DownloadFile https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe
+  # install Cloud SDK
+  - GoogleCloudSDKInstaller.exe /S /noreporting /nostartmenu /nodesktop /logtofile /D=%GC_PATH%
+  - SET PATH=%PATH%;%GC_PATH%\google-cloud-sdk\;%GC_PATH%\google-cloud-sdk\bin\
+  # prepare for non-interactive Cloud SDK components update
+  - gcloud.cmd components copy-bundled-python>>python_path.txt && SET /p CLOUDSDK_PYTHON=<python_path.txt && DEL python_path.txt
+  - refreshenv
+  # update all Cloud SDK components
+  - gcloud components update --quiet
+  # add beta component
+  - gcloud components install beta --quiet
+  # install datastore emulator
+  - gcloud components install pubsub-emulator --quiet
+  # Install node.js versions
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  # Install npm dependencies
+  - npm install
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - npm test
+
+# Don't actually build.
+build: off
+matrix:
+  fast_finish: true
+# Access to VM via RDP
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

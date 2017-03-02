@@ -4,8 +4,8 @@
   "description": "Google pubsub emulator to nodejs / javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --ui bdd test/**/*.spec.js --timeout 10000",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- --ui bdd test/**/*.spec.js --timeout 10000"
+    "test": "mocha --ui bdd test/**/*.spec.js --timeout 10000 --no-exit",
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- --ui bdd test/**/*.spec.js --timeout 10000 --no-exit"
   },
   "keywords": [
     "google",
