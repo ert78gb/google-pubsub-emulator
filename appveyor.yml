@@ -19,11 +19,11 @@ install:
   - gcloud.cmd components copy-bundled-python>>python_path.txt && SET /p CLOUDSDK_PYTHON=<python_path.txt && DEL python_path.txt
   - refreshenv
   # update all Cloud SDK components
-  - gcloud.cmd components update --quiet
+  - gcloud components update --quiet
   # add beta component
-  - gcloud.cmd components install beta --quiet
+  - gcloud components install beta --quiet
   # install datastore emulator
-  - gcloud.cmd components install pubsub-emulator --quiet
+  - gcloud components install pubsub-emulator --quiet
   # Install node.js versions
   - ps: Install-Product node $env:nodejs_version $env:platform
   # Install npm dependencies
