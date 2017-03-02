@@ -43,7 +43,7 @@ class PubSubEmulator {
                 throw new Error('PubSub emulator is already running.');
 
             const params = this._getCommandParameters();
-            self._emulator = spawn('gcloud', params);
+            self._emulator = spawn('gcloud', params, { shell: true });
 
             self._registerEmulatorListeners();
 
