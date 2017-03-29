@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --ui bdd test/**/*.spec.js --timeout 10000",
+    "test:appveyor": "mocha --reporter mocha-appveyor-reporter --reporter-options appveyorBatchSize=1 --ui bdd test/**/*.spec.js --timeout 10000",
     "coverage": "istanbul cover node_modules/.bin/_mocha -- --ui bdd test/**/*.spec.js --timeout 10000"
   },
   "keywords": [
@@ -34,6 +35,10 @@
     "chai-as-promised": "^6.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+<<<<<<< HEAD
     "sinon": "^2.1.0"
+=======
+    "mocha-appveyor-reporter": "^0.4.0"
+>>>>>>> master
   }
 }
