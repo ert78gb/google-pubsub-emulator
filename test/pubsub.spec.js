@@ -6,6 +6,9 @@ const chai = require('chai');
 const Emulator = require('../index');
 const fs = require('fs');
 const fse = require('fs-extra-promise').usePromise(Promise);
+const nodeCleanup = require('node-cleanup');
+const sinon = require('sinon');
+const kill = require('tree-kill');
 
 chai.use(require("chai-as-promised"));
 
@@ -226,7 +229,7 @@ describe('Google PubSub Emulator Test', () => {
                     expect(error).to.have.property('message', 'PubSub emulator is already running.');
                 });
             })
-    })
+    });
 
     it('should return ok when call stop twice', () => {
         process.env.GCLOUD_PROJECT = 'test';
@@ -242,7 +245,7 @@ describe('Google PubSub Emulator Test', () => {
             .then(emulator.stop.bind(emulator));
     });
 
-    it('should left the dataDir when clean = false', ()=>{
+    it('should left the dataDir when clean = false', () => {
         const dataDir = emulatorDir;
 
         expect(directoryExists(dataDir)).to.be.equal(false);
@@ -303,7 +306,46 @@ describe('Google PubSub Emulator Test', () => {
 
                 return emulator.stop()
             })
+    });
 
+});
+
+describe('Process terminate tests', ()=>{
+    let killSpy;
+
+    beforeEach(()=>{
+        killSpy = sinon.spy(kill);
+    });
+
+    afterEach(()=>{
+        killSpy.restore();
+    });
+
+    // fixme: The spy can not catch the kill :(
+    it.skip('process.kill should kill child processes', function (done) {
+        this.timeout(10000);
+
+        let options = {
+            debug: true
+        };
+
+        let emulator = new Emulator(options);
+        let calledDone = false;
+
+        emulator.start()
+            .then(() => {
+                nodeCleanup(() => {
+                    if (!calledDone) {
+                        calledDone = true;
+                        setTimeout(()=>{
+                            expect(killSpy.callCount).to.be.equal(1);
+                            done();
+                        }, 2000);
+                    }
+                });
+
+                process.kill(process.pid);
+            })
     })
 });
 

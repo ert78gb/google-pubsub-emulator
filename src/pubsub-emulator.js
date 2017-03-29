@@ -10,6 +10,7 @@ const spawn = require('child_process').spawn;
 const EventEmitter = require('events');
 const fse = require('fs-extra-promise').usePromise(Promise);
 const kill = require('tree-kill');
+const nodeCleanup = require('node-cleanup');
 
 class PubSubStateEmitter extends EventEmitter {
 }
@@ -29,8 +30,10 @@ class PubSubEmulator {
         const self = this;
 
         /* istanbul ignore next */
-        process.on('exit', () => {
+        nodeCleanup(() => {
             self.stop();
+            nodeCleanup.uninstall();
+            return false;
         });
     }
 
