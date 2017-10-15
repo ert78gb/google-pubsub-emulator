@@ -8,6 +8,8 @@ Perfect to support unit testing when you need the local emulator start in unit /
 
 The wrapper sets PUBSUB_EMULATOR_HOST and GCLOUD_PROJECT environment variables.
 
+From 2.0.0 @google-cloud/pubsub moved to the peer dependencies.
+
 #Prerequisites
 To use the emulator you need to install [Google Cloud SDK](https://cloud.google.com/sdk/downloads)
 
