@@ -105,8 +105,15 @@ class PubSubEmulator{
 
     const self = this;
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       let resolved = false;
+      let cleaned = false;
+      let killed = false;
+
+      function exitedSubStep () {
+        if (cleaned && killed)
+          resolve();
+      }
 
       function stopListener () {
         if (resolved)
@@ -117,7 +124,11 @@ class PubSubEmulator{
         removeStopListeners();
         self._removeEmulatorListeners();
         return self._clean()
-          .then(resolve);
+          .then(() => {
+            cleaned = true;
+            exitedSubStep();
+          })
+          .catch(reject);
       }
 
       function removeStopListeners () {
@@ -130,7 +141,13 @@ class PubSubEmulator{
 
       this._stateEmitter.on(EmulatorStates.CLOSE, stopListener.bind(this));
 
-      kill(this._emulator.pid);
+      kill(this._emulator.pid, (err) => {
+        killed = true;
+        if (err)
+          return reject(err);
+
+        exitedSubStep();
+      });
     });
   }
 
@@ -171,6 +188,8 @@ class PubSubEmulator{
     }
 
     if (this._options.debug) {
+      params.push('--user-output-enabled');
+      params.push('--log-http');
       params.push('--verbosity=debug');
     }
 
