@@ -29,6 +29,7 @@ install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   # Install npm dependencies
   - npm install
+  - npm install @google-cloud/pubsub
 
 # Post-install test scripts.
 test_script:
