@@ -15,4 +15,5 @@ before_install:
   - sudo apt-get update && sudo apt-get install google-cloud-sdk google-cloud-sdk-pubsub-emulator
 
 install:
+  - npm install
   - npm install @google-cloud/pubsub
