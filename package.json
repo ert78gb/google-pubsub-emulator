@@ -23,22 +23,23 @@
   "author": "Robert Kiss <ert78gb@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^7.0.0",
+    "get-port": "^4.0.0",
     "node-cleanup": "^2.1.2",
     "tree-kill": "^1.2.0"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.43",
+    "@types/mocha": "^5.2.5",
     "bluebird": "^3.5.1",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
+    "mocha": "^5.2.0",
     "mocha-appveyor-reporter": "^0.4.0",
     "require-uncached": "^1.0.3",
-    "sinon": "^4.0.1"
+    "sinon": "^6.1.4"
   },
   "peerDependencies": {
-    "@google-cloud/pubsub": "^0.14.5"
+    "@google-cloud/pubsub": "^0.19.0"
   }
 }
