@@ -5,8 +5,8 @@ os:
 language: node_js
 node_js:
   - "6"
-  - "7"
   - "8"
+  - "10"
 
 before_install:
   - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -16,4 +16,4 @@ before_install:
 
 install:
   - npm install
-  - npm install @google-cloud/pubsub
+  - npm install --no-save @google-cloud/pubsub
