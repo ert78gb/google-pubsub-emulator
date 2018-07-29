@@ -12,6 +12,7 @@ const EventEmitter = require('events');
 const fse = require('fs-extra');
 const kill = require('tree-kill');
 const nodeCleanup = require('node-cleanup');
+const getPort = require('get-port');
 
 class PubSubStateEmitter extends EventEmitter{
 }
@@ -44,18 +45,11 @@ class PubSubEmulator{
     this._portAlreadyInUse = false;
 
     return this._createDataDirSync()
-      .then(() => {
+      .then(()=> this._getCommandParameters())
+      .then(params => {
         return new Promise((resolve, reject) => {
           if (this._state)
             return reject(new Error('PubSub emulator is already running.'));
-
-          let params;
-          try {
-            params = this._getCommandParameters();
-          }
-          catch (err) {
-            return reject(err);
-          }
 
           self._emulator = spawn('gcloud', params, {shell: true});
 
@@ -167,33 +161,40 @@ class PubSubEmulator{
   }
 
   _getCommandParameters () {
-    const params = ['beta', 'emulators', 'pubsub', 'start'];
+    return getPort({port: 8538})
+      .then(defaultPort => {
 
-    if (this._options.project) {
-      params.push('--project=' + this._options.project);
-    }
+        const params = ['beta', 'emulators', 'pubsub', 'start'];
 
-    if (this._options.host && this._options.port) {
-      params.push(`--host-port=${this._options.host}:${this._options.port}`);
-    }
-    else if (!this._options.host && this._options.port) {
-      params.push(`--host-port=localhost:${this._options.port}`);
-    }
-    else if (this._options.host && !this._options.port) {
-      throw new Error('If you set host you need to set port.');
-    }
+        if (this._options.project) {
+          params.push('--project=' + this._options.project);
+        }
 
-    if (this._options.dataDir) {
-      params.push('--data-dir=' + this._options.dataDir);
-    }
+        if (this._options.host && this._options.port) {
+          params.push(`--host-port=${this._options.host}:${this._options.port}`);
+        }
+        else if (!this._options.host && this._options.port) {
+          params.push(`--host-port=localhost:${this._options.port}`);
+        }
+        else if (this._options.host && !this._options.port) {
+          throw new Error('If you set host you need to set port.');
+        }
+        else {
+          params.push(`--host-port=localhost:${defaultPort}`);
+        }
 
-    if (this._options.debug) {
-      params.push('--user-output-enabled');
-      params.push('--log-http');
-      params.push('--verbosity=debug');
-    }
+        if (this._options.dataDir) {
+          params.push('--data-dir=' + this._options.dataDir);
+        }
 
-    return params;
+        if (this._options.debug) {
+          params.push('--user-output-enabled');
+          params.push('--log-http');
+          params.push('--verbosity=debug');
+        }
+
+        return params;
+      });
   }
 
   _writeDebug (message) {
