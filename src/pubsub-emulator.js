@@ -5,7 +5,6 @@ const DEFAULT_OPTIONS = {
   debug: false
 };
 
-const Promise = require('bluebird');
 const EmulatorStates = require('./emulator-states');
 const spawn = require('child_process').spawn;
 const EventEmitter = require('events');
@@ -57,7 +56,6 @@ class PubSubEmulator{
 
           function startSuccessListener () {
             removeStartListeners();
-            self._pubsub = require('@google-cloud/pubsub')();
             self._createTopics()
               .then(() => {
                 resolve();
@@ -291,6 +289,8 @@ class PubSubEmulator{
     if (!this._options.topics || this._options.topics.length < 1)
       return Promise.resolve();
 
+    const PubSub = require('@google-cloud/pubsub');
+    this._pubsub = new PubSub();
     return Promise.all(this._options.topics.map(topic => this.isTopicExists(topic)))
       .then((result => {
           return Promise.all(result
