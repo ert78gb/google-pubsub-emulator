@@ -8,6 +8,8 @@ node_js:
   - "10"
 
 before_install:
+  # See: https://github.com/travis-ci/travis-ci/issues/10132
+  - sudo apt-get install -y dpkg
   - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
   - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   - echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
