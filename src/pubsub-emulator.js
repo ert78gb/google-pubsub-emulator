@@ -1,4 +1,4 @@
-const PUBSUB_EMULATOR_RUNNING_KEY = '[pubsub] INFO: Server started, listening on ';
+const PUBSUB_EMULATOR_RUNNING_KEY = '[pubsub] INFOS: Server started, listening on';
 const PORT_ALREADY_IN_USE = '[pubsub] Exception in thread "main" java.io.IOException: Failed to bind';
 const DEFAULT_OPTIONS = {
   clean: true,
