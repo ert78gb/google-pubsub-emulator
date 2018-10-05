@@ -1,10 +1,8 @@
 'use strict';
-const TEST_TOPIC = 'test-topic';
 
-const requireUncached = require('require-uncached');
-const Promise = require('bluebird');
-const chai = require('chai');
+const PubSub = require('@google-cloud/pubsub');
 const Emulator = require('../index');
+const chai = require('chai');
 const fs = require('fs');
 const fse = require('fs-extra');
 const nodeCleanup = require('node-cleanup');
@@ -14,6 +12,8 @@ const kill = require('tree-kill');
 chai.use(require('chai-as-promised'));
 
 const expect = chai.expect;
+
+const TEST_TOPIC = 'test-topic';
 
 describe('Google PubSub Emulator Test', () => {
   const emulatorDir = './emulator-test/';
@@ -34,11 +34,11 @@ describe('Google PubSub Emulator Test', () => {
     // should wait until the emulator release the port
     setTimeout(() => {
       done();
-    }, 5000);
+    }, 11000);
   });
 
   it('should start the emulator with default values', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test0';
 
     let options = {
       debug: true
@@ -48,11 +48,13 @@ describe('Google PubSub Emulator Test', () => {
 
     return emulator.start()
       .then(runSimpleTest)
-      .then(emulator.stop.bind(emulator));
+      .then(() => {
+        return emulator.stop();
+      })
   });
 
   it('should not write to console if debug=false', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test1';
     let wrotePubSub = false;
 
     const stub = sinon.stub(console, 'log').callsFake(() => {
@@ -75,7 +77,6 @@ describe('Google PubSub Emulator Test', () => {
       .then(() => {
         stub.restore();
         expect(wrotePubSub).to.be.equal(false);
-        process.env.GCLOUD_PROJECT = null;
       });
   });
 
@@ -91,7 +92,9 @@ describe('Google PubSub Emulator Test', () => {
 
     return emulator.start()
       .then(() => {
-        const pubsub = requireUncached('@google-cloud/pubsub')();
+        const pubsub = new PubSub({
+          projectId: projectId
+        });
         return pubsub.topic(TEST_TOPIC).create();
       })
       .then((data) => {
@@ -103,7 +106,9 @@ describe('Google PubSub Emulator Test', () => {
         return Promise.resolve();
       })
       .then(() => {
-        const pubsub = requireUncached('@google-cloud/pubsub')();
+        const pubsub = new PubSub({
+          projectId: projectId
+        });
         return pubsub.topic(TEST_TOPIC).exists();
       }).then((data) => {
         let exists = data[0];
@@ -112,10 +117,9 @@ describe('Google PubSub Emulator Test', () => {
 
         return emulator.stop();
       });
-
   });
 
-  it.skip('should start the emulator when set project Id and dataDir', () => {
+  it('should start the emulator when set project Id and dataDir', () => {
     const projectId = 'test3';
     const dataDir = emulatorDir;
 
@@ -131,7 +135,9 @@ describe('Google PubSub Emulator Test', () => {
     return emulator.start()
       .then(() => {
         expect(directoryExists(dataDir)).to.be.equal(true);
-        const pubsub = requireUncached('@google-cloud/pubsub')();
+        const pubsub = new PubSub({
+          projectId: projectId
+        });
         return pubsub.topic(TEST_TOPIC).create();
       })
       .then((data) => {
@@ -143,7 +149,9 @@ describe('Google PubSub Emulator Test', () => {
         return Promise.resolve();
       })
       .then(() => {
-        const pubsub = requireUncached('@google-cloud/pubsub')();
+        const pubsub = new PubSub({
+          projectId: projectId
+        });
         return pubsub.topic(TEST_TOPIC).exists();
       })
       .then((data) => {
@@ -160,7 +168,7 @@ describe('Google PubSub Emulator Test', () => {
   });
 
   it('should start the emulator with specified host and port', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test4';
 
     let options = {
       debug: true,
@@ -173,14 +181,13 @@ describe('Google PubSub Emulator Test', () => {
     return emulator.start()
       .then(runSimpleTest)
       .then(() => {
-
         expect(process.env.PUBSUB_EMULATOR_HOST).to.be.equal('localhost:8555');
         return emulator.stop();
       });
   });
 
   it('should throw error when call only with host options', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test5';
 
     let options = {
       debug: true,
@@ -193,7 +200,7 @@ describe('Google PubSub Emulator Test', () => {
   });
 
   it('should start the emulator on localhost when specified only port', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test6';
 
     let options = {
       debug: true,
@@ -204,11 +211,13 @@ describe('Google PubSub Emulator Test', () => {
 
     return emulator.start()
       .then(runSimpleTest)
-      .then(emulator.stop.bind(emulator));
+      .then(() => {
+        return emulator.stop();
+      })
   });
 
   it('should not start twice', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test7';
 
     let options = {
       debug: true
@@ -236,7 +245,7 @@ describe('Google PubSub Emulator Test', () => {
   });
 
   it('should return ok when call stop twice', () => {
-    process.env.GCLOUD_PROJECT = 'test';
+    process.env.GCLOUD_PROJECT = 'test8';
 
     let options = {
       debug: true
@@ -249,7 +258,7 @@ describe('Google PubSub Emulator Test', () => {
       .then(() => emulator.stop());
   });
 
-  it.skip('should left the dataDir when clean = false', () => {
+  it('should left the dataDir when clean = false', () => {
     const dataDir = emulatorDir;
 
     expect(directoryExists(dataDir)).to.be.equal(false);
@@ -291,12 +300,10 @@ describe('Google PubSub Emulator Test', () => {
 
     return emulator.start()
       .then(() => {
-
         return Promise.all([
           emulator.isTopicExists(options.topics[0]),
           emulator.isTopicExists(options.topics[1])
         ]);
-
       })
       .then((result) => {
         expect(result[0].exists).to.be.equal(true);
@@ -306,6 +313,27 @@ describe('Google PubSub Emulator Test', () => {
       });
   });
 
+  it('isTopicExists() should return false when topic is not created', () => {
+    let options = {
+      debug: true
+    };
+
+    let emulator = new Emulator(options);
+
+    return emulator.start()
+      .then(() => {
+        return Promise.all([
+          emulator.isTopicExists('projects/test/topics/topic-1'),
+          emulator.isTopicExists('projects/test/topics/topic-2')
+        ]);
+      })
+      .then((result) => {
+        expect(result[0].exists).to.be.equal(false);
+        expect(result[1].exists).to.be.equal(false);
+
+        return emulator.stop();
+      });
+  });
 });
 
 describe('Process terminate tests', () => {
@@ -359,7 +387,9 @@ function directoryExists (dir) {
 }
 
 function runSimpleTest () {
-  const pubsub = requireUncached('@google-cloud/pubsub')();
+  const pubsub = new PubSub({
+    projectId: process.env.GCLOUD_PROJECT || 'simple-test'
+  });
 
   return pubsub.topic(TEST_TOPIC).create()
     .then((data) => {

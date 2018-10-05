@@ -3,7 +3,7 @@
 Google Cloud PubSub Emulator
 ===============================
 
-This package helps to start / stop [Google PupSub Emulator](https://cloud.google.com/sdk/gcloud/reference/beta/emulators/pubsub/) with javascript.
+This package helps to start / stop [Google Cloud Pub/Sub Emulator](https://cloud.google.com/sdk/gcloud/reference/beta/emulators/pubsub/) with javascript.
 Perfect to support unit testing when you need the local emulator start in unit / half integration test.
 
 The wrapper sets PUBSUB_EMULATOR_HOST and GCLOUD_PROJECT environment variables.
@@ -58,7 +58,7 @@ describe('test suit', ()=>{
 
 parameter (type) | default value | description
 ----------|---------------|-------------------
-projectId (string) | empty | This variable is gcloud project Id. If it is empty, GCLOUD_PROJECT environment variable will be used. Either you should set it directly or the environment variable should be set.
+project (string) | empty | This variable is gcloud project Id. If it is empty, GCLOUD_PROJECT environment variable will be used. Either you should set it directly or the environment variable should be set.
 dataDir (string) | empty | The emulator creates a directory where the project files are stored. If it is empty the emulator default value will be used. You could set relative ./directory or absolute path /tmp/dir1/dir2/. If this directory does not exist, it will be created.
 clean (boolean) | true | If dataDir value is set and 'clean' value is true then the package deletes the dataDir. The package **does not** delete the gcloud emulator default directory. 
 host (string) | empty | If it is empty the'localhost' of google default value is used. It can take the form of a single address (hostname, IPv4, or IPv6)
