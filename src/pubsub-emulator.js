@@ -285,24 +285,34 @@ class PubSubEmulator{
     return Promise.resolve();
   }
 
+  _getPubSubClient (options) {
+    if (this._pubsub === null) {
+      const PubSub = require('@google-cloud/pubsub');
+      options = options || {};
+      this._pubsub = new PubSub(options);
+    }
+
+    return this._pubsub;
+  }
+
   _createTopics () {
     if (!this._options.topics || this._options.topics.length < 1)
       return Promise.resolve();
 
-    const PubSub = require('@google-cloud/pubsub');
-    this._pubsub = new PubSub();
+    const pubsub = this._getPubSubClient();
     return Promise.all(this._options.topics.map(topic => this.isTopicExists(topic)))
       .then((result => {
           return Promise.all(result
             .filter(topic => !topic.exists)
-            .map(topic => this._pubsub.topic(topic.topicName).create())
+            .map(topic => pubsub.topic(topic.topicName).create())
           );
         })
       );
   }
 
   isTopicExists (topicName) {
-    return this._pubsub.topic(topicName).exists()
+    const pubsub = this._getPubSubClient();
+    return pubsub.topic(topicName).exists()
       .then((result) => {
         return Promise.resolve({
           topicName,
