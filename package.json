@@ -35,7 +35,7 @@
     "chai-as-promised": "^7.1.1",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
-    "mocha-appveyor-reporter": "^0.4.1",
+    "mocha-appveyor-reporter": "^0.4.2",
     "sinon": "^6.1.4",
     "standard-version": "^4.4.0"
   },
