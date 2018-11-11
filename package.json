@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --ui bdd test/**/*.spec.js --timeout 20000",
     "test:appveyor": "mocha --reporter mocha-appveyor-reporter --reporter-options appveyorBatchSize=1 --ui bdd test/**/*.spec.js --timeout 20000",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- --ui bdd test/**/*.spec.js --timeout 20000"
+    "coverage": "istanbul cover node_modules/.bin/_mocha -- --ui bdd test/**/*.spec.js --timeout 20000",
+    "release": "standard-version"
   },
   "keywords": [
     "google",
@@ -35,7 +36,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "mocha-appveyor-reporter": "^0.4.1",
-    "sinon": "^6.1.4"
+    "sinon": "^6.1.4",
+    "standard-version": "^4.4.0"
   },
   "peerDependencies": {
     "@google-cloud/pubsub": "^0.20.0"
