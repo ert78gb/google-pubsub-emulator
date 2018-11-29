@@ -22,7 +22,7 @@ npm install google-pubsub-emulator --save-dev
 I think the package is the most suitable for unit testing.
  
 ```javascript
-const pubsub = require('@google-cloud/pubsub');
+const {PubSub} = require('@google-cloud/pubsub');
 const Emulator = require('google-pubsub-emulator');
 
 describe('test suit', ()=>{

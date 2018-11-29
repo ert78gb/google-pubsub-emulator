@@ -1,6 +1,6 @@
 'use strict';
 
-const PubSub = require('@google-cloud/pubsub');
+const {PubSub} = require('@google-cloud/pubsub');
 const Emulator = require('../index');
 const chai = require('chai');
 const fs = require('fs');

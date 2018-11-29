@@ -287,7 +287,7 @@ class PubSubEmulator{
 
   _getPubSubClient (options) {
     if (this._pubsub === null) {
-      const PubSub = require('@google-cloud/pubsub');
+      const {PubSub} = require('@google-cloud/pubsub');
       options = options || {};
       this._pubsub = new PubSub(options);
     }
