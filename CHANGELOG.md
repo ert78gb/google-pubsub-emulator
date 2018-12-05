@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v2.0.4...v3.0.0) (2018-12-05)
+
+
+### Bug Fixes
+
+* PubSub is not a constructor ([#13](https://github.com/ert78gb/google-pubsub-emulator/issues/13)) ([a3adefd](https://github.com/ert78gb/google-pubsub-emulator/commit/a3adefd)), closes [#12](https://github.com/ert78gb/google-pubsub-emulator/issues/12)
+
+
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/ert78gb/google-pubsub-emulator/compare/v2.0.3...v2.0.4) (2018-11-11)
 
