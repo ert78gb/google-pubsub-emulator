@@ -40,6 +40,6 @@
     "standard-version": "^4.4.0"
   },
   "peerDependencies": {
-    "@google-cloud/pubsub": "^0.22.0"
+    "@google-cloud/pubsub": "^0.28.1"
   }
 }
