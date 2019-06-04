@@ -1,4 +1,3 @@
-const PUBSUB_EMULATOR_RUNNING_KEY = '[pubsub] INFO: Server started, listening on ';
 const PORT_ALREADY_IN_USE = '[pubsub] Exception in thread "main" java.io.IOException: Failed to bind';
 const DEFAULT_OPTIONS = {
   clean: true,
@@ -12,6 +11,8 @@ const fse = require('fs-extra');
 const kill = require('tree-kill');
 const nodeCleanup = require('node-cleanup');
 const getPort = require('get-port');
+
+const {getPortNumber} = require('./get-port-number');
 
 class PubSubStateEmitter extends EventEmitter{
 }
@@ -146,9 +147,9 @@ class PubSubEmulator{
   _processStd (data) {
     const text = data.toString();
 
-    if (text.indexOf(PUBSUB_EMULATOR_RUNNING_KEY) > -1) {
-      let s = text.substring(text.lastIndexOf(PUBSUB_EMULATOR_RUNNING_KEY));
-      this._emulator_port = s.trim().substr(PUBSUB_EMULATOR_RUNNING_KEY.length);
+    const portNumber = getPortNumber(text);
+    if (portNumber) {
+      this._emulator_port = portNumber;
 
       this._setEnviromentVariables();
       this._setState(EmulatorStates.RUNNING);
