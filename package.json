@@ -1,6 +1,6 @@
 {
   "name": "google-pubsub-emulator",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Google pubsub emulator to nodejs / javascript",
   "main": "index.js",
   "scripts": {

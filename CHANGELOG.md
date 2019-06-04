@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.1](https://github.com/ert78gb/google-pubsub-emulator/compare/v3.0.0...v3.0.1) (2019-06-04)
+
+
+### Bug Fixes
+
+* **deps:** upgrade @google-cloud/pubsub => 0.28.1 ([19490d0](https://github.com/ert78gb/google-pubsub-emulator/commit/19490d0))
+* use regexp to detect emulator running or not ([e91bcb3](https://github.com/ert78gb/google-pubsub-emulator/commit/e91bcb3))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v2.0.4...v3.0.0) (2018-12-05)
 
