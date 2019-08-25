@@ -37,7 +37,7 @@
     "mocha": "^6.2.0",
     "mocha-appveyor-reporter": "^0.4.2",
     "sinon": "^7.3.2",
-    "standard-version": "^5.0.2"
+    "standard-version": "^7.0.0"
   },
   "peerDependencies": {
     "@google-cloud/pubsub": "^0.28.1"
