@@ -3,7 +3,7 @@ environment:
   matrix:
     - nodejs_version: "8"
     - nodejs_version: "10"
-    - nodejs_version: "11"
+    - nodejs_version: "12"
 
 platform:
   - x86
@@ -23,7 +23,7 @@ install:
   - gcloud components update --quiet
   # add beta component
   - gcloud components install beta --quiet
-  # install datastore emulator
+  # install pubsub emulator
   - gcloud components install pubsub-emulator --quiet
   # Install node.js versions
   - ps: Install-Product node $env:nodejs_version $env:platform
