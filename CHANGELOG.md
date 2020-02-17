@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [3.0.2](https://github.com/ert78gb/google-pubsub-emulator/compare/v3.0.1...v3.0.2) (2020-02-17)
+
+
+### Bug Fixes
+
+* upgrade fs-extra => 8.1.0 ([9c92437](https://github.com/ert78gb/google-pubsub-emulator/commit/9c924374055e2abc859efbe8a1298e55df3716b5))
 
 ## [3.0.1](https://github.com/ert78gb/google-pubsub-emulator/compare/v3.0.0...v3.0.1) (2019-06-04)
 
