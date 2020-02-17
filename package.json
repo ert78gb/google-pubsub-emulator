@@ -30,11 +30,11 @@
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^7.0.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "nyc": "^14.1.1",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "mocha-appveyor-reporter": "^0.4.2",
     "sinon": "^7.5.0",
     "standard-version": "^7.0.0"
