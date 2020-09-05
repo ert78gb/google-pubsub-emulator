@@ -23,6 +23,10 @@
   },
   "author": "Robert Kiss <ert78gb@gmail.com>",
   "license": "MIT",
+  "files": [
+    "index.js",
+    "src/"
+  ],
   "dependencies": {
     "fs-extra": "^8.1.0",
     "get-port": "^5.1.1",
