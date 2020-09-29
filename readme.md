@@ -1,4 +1,5 @@
 ![CI](https://github.com/ert78gb/google-pubsub-emulator/workflows/CI/badge.svg)
+![CodeQL](https://github.com/ert78gb/google-pubsub-emulator/workflows/CodeQL/badge.svg)
 
 Google Cloud PubSub Emulator
 ===============================
