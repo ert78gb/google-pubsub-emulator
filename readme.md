@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ert78gb/google-pubsub-emulator.svg?branch=master)](https://travis-ci.org/ert78gb/google-pubsub-emulator)
+![CI](https://github.com/ert78gb/google-pubsub-emulator/workflows/CI/badge.svg)
 
 Google Cloud PubSub Emulator
 ===============================
