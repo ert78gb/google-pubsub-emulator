@@ -9,13 +9,13 @@ on:
       - master
 
 jobs:
-  test-linux:
-    name: Test on Linux with Node ${{ matrix.node }}
-    runs-on: ubuntu-latest
-
+  test:
+    name: Test on node ${{ matrix.node-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: [10, 12, 14]
+        node-version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -25,66 +25,20 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install locally the Gloud sdk
-        run: |
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-          echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          sudo apt-get -qq update
-          sudo apt-get -qq install google-cloud-sdk google-cloud-sdk-pubsub-emulator
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install @google-cloud/pubsub peer dependency
-        run: npm install --no-save @google-cloud/pubsub
-
-      - name: Run test
-        run: npm test
-
-  test-windows:
-    name: Test on Windows with Node ${{ matrix.node }}
-    runs-on: windows-latest
-    env:
-      GC_PATH: 'C:\CloudSDK'
-
-    strategy:
-      matrix:
-        node: [10, 12, 14]
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Download GoogleCloudSDKInstaller.exe
-        run: (new-object System.Net.WebClient).DownloadFile('https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe','c:\temp\GoogleCloudSDKInstaller.exe')
-        shell: powershell
-
-      - name: Install Gloud SDK locally
-        run: c:\temp\GoogleCloudSDKInstaller.exe /S /noreporting /nostartmenu /nodesktop /logtofile /D=%GC_PATH%
-        shell: cmd
-
-      - name: Add C:/CloudSDK/google-cloud-sdk to the path
-        run: echo "::add-path::C:/CloudSDK/google-cloud-sdk/"
-
-      - name: Add C:/CloudSDK/google-cloud-sdk/bin to the path
-        run: echo "::add-path::C:/CloudSDK/google-cloud-sdk/bin/"
-
-      - name: Set CLOUDSDK_PYTHON env
-        run: echo "::set-env name=CLOUDSDK_PYTHON::$(gcloud.cmd components copy-bundled-python)"
+      - name: Use gcloud CLI
+        run: gcloud info
 
       - name: Update GCloud Components
-        run: gcloud.cmd components update --quiet
+        run: gcloud components update --quiet
 
       - name: Install GCloud beta
-        run: gcloud.cmd components install beta --quiet
+        run: gcloud components install beta --quiet
 
       - name: Install pubsub-emulator
-        run: gcloud.cmd components install pubsub-emulator --quiet
+        run: gcloud components install pubsub-emulator --quiet
 
       - name: Install dependencies
         run: npm ci
