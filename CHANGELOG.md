@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v4.0.0...v5.0.0) (2021-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* because major version number changed
+* Drop Node 10 support
+
+### Features
+
+* Node 16 support ([#69](https://github.com/ert78gb/google-pubsub-emulator/issues/69)) ([1598423](https://github.com/ert78gb/google-pubsub-emulator/commit/1598423b23fcc9f1a837232decce0fecb82d2fb7))
+
+
+### Bug Fixes
+
+* bump fs-extra from 9.1.0 to 10.0.0 ([#57](https://github.com/ert78gb/google-pubsub-emulator/issues/57)) ([571b805](https://github.com/ert78gb/google-pubsub-emulator/commit/571b805c1da030c1319dedd963ce2dc4e502ecc2))
+* required @google-cloud/pubsub@2.16+ ([#73](https://github.com/ert78gb/google-pubsub-emulator/issues/73)) ([751618e](https://github.com/ert78gb/google-pubsub-emulator/commit/751618e4754bcfa5c867766fd44866a7fadada47))
+
 ## [4.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v3.0.2...v4.0.0) (2020-09-05)
 
 
