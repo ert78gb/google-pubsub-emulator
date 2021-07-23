@@ -34,7 +34,7 @@
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "@types/mocha": "^8.0.3",
+    "@types/mocha": "^9.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "nyc": "^15.0.0",
