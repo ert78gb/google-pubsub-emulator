@@ -41,7 +41,7 @@ jobs:
         run: gcloud components install pubsub-emulator --quiet
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install @google-cloud/pubsub peer dependency
         run: npm install --no-save @google-cloud/pubsub
