@@ -4,7 +4,7 @@
   "description": "Google pubsub emulator to nodejs / javascript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --ui bdd test/**/*.spec.js --timeout 20000",
+    "test": "mocha --ui bdd test/**/*.spec.js --timeout 60000",
     "test:appveyor": "mocha --reporter mocha-appveyor-reporter --reporter-options appveyorBatchSize=1 --ui bdd test/**/*.spec.js --timeout 20000",
     "coverage": "nyc npm test",
     "release": "standard-version"
