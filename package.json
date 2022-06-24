@@ -44,6 +44,6 @@
     "standard-version": "^9.0.0"
   },
   "peerDependencies": {
-    "@google-cloud/pubsub": "^2.16.0"
+    "@google-cloud/pubsub": ">=2.16.0 <4.0.0"
   }
 }

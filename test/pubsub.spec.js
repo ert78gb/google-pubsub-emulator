@@ -57,11 +57,15 @@ describe('Google PubSub Emulator Test', () => {
     process.env.GCLOUD_PROJECT = 'test1';
     let wrotePubSub = false;
 
-    const stub = sinon.stub(console, 'log').callsFake(() => {
+    const stub = sinon.stub(console, 'log').callsFake((d) => {
+      process.stdout.write(d + '\n');
+
+      if (!d || !d.indexOf)
+        return;
+
       if (d.indexOf('[pubsub]') > -1) {
         wrotePubSub = true;
       }
-      process.stdout.write(d + '\n');
     });
 
     let options = {
