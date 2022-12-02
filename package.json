@@ -28,7 +28,7 @@
     "src/"
   ],
   "dependencies": {
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.1.0",
     "get-port": "^5.1.1",
     "node-cleanup": "^2.1.2",
     "tree-kill": "^1.2.2"
