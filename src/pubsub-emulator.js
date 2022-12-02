@@ -10,7 +10,6 @@ const EventEmitter = require('events');
 const fse = require('fs-extra');
 const kill = require('tree-kill');
 const nodeCleanup = require('node-cleanup');
-const getPort = require('get-port');
 
 const {getPortNumber} = require('./get-port-number');
 
@@ -160,7 +159,8 @@ class PubSubEmulator{
   }
 
   _getCommandParameters () {
-    return getPort({port: 8538})
+    return import('get-port')
+      .then(({ default: getPort }) => getPort({port: 8538}))
       .then(defaultPort => {
 
         const params = ['beta', 'emulators', 'pubsub', 'start'];
