@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v6.0.0...v7.0.0) (2023-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require Node.js 16
+
+### Bug Fixes
+
+* bump get-port from 6.1.2 to 7.0.0 ([#107](https://github.com/ert78gb/google-pubsub-emulator/issues/107)) ([f374b77](https://github.com/ert78gb/google-pubsub-emulator/commit/f374b7702494cca9d13b7af26f35fee06acfb5f2))
+
 ## [6.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v5.0.0...v6.0.0) (2022-12-02)
 
 
