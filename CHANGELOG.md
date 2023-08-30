@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.1.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v7.0.0...v7.1.0) (2023-08-30)
+
+
+### Features
+
+* support @google-cloud/pubsub 4.x ([#110](https://github.com/ert78gb/google-pubsub-emulator/issues/110)) ([0f86a0b](https://github.com/ert78gb/google-pubsub-emulator/commit/0f86a0b873d234d3516aa69b0ffa9f1e9ae10183))
+
 ## [7.0.0](https://github.com/ert78gb/google-pubsub-emulator/compare/v6.0.0...v7.0.0) (2023-06-10)
 
 
