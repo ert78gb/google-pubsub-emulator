@@ -12,9 +12,10 @@ jobs:
   test:
     name: Test on node ${{ matrix.node-version }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     strategy:
       matrix:
-        node-version: [16, 18, 20]
+        node-version: [18, 20, 21]
         os: [ubuntu-latest, windows-latest]
 
     steps:
@@ -47,4 +48,5 @@ jobs:
         run: npm install --no-save @google-cloud/pubsub
 
       - name: Run test
+        timeout-minutes: 15
         run: npm test
